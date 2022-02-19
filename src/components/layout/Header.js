@@ -1,11 +1,10 @@
-import classes from './Header.module.css'
+import { HeaderContainer } from '../layout/Header.styles.jsx'
 const Header =()=>{
 
-
     return(
-        <header className={classes.header}>
+        <HeaderContainer>
             Foreca Weather
-        </header>
+        </HeaderContainer>
     )
 }
 

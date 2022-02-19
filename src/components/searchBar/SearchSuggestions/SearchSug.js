@@ -1,13 +1,9 @@
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import SearchItem from './SearchItem'
-import classes from './SearchSug.module.css'
-
+import SearchItem from '../SearchItem/SearchItem'
+import { NavContainer } from './SearchSug.styles'
 const SearchSug=(props)=>{
 
     return(
-        <nav className={classes.nav}>
-            <ul>
+            <NavContainer>
                {props.data.map((region)=>{
                    return <SearchItem
                    id={region.id}
@@ -17,8 +13,7 @@ const SearchSug=(props)=>{
                    country={region.country}
                    />
                })}
-            </ul>
-        </nav>
+            </NavContainer>
     )
             }
 export default SearchSug

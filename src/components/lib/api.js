@@ -1,38 +1,38 @@
 import { currentDataSliceActions } from "../../redux/currentData-slice";
 import { forecastActions } from "../../redux/forecast-slice";
-import weatherSlice, { weatherActions } from "../../redux/weather-slice";
+import  { weatherActions } from "../../redux/weather-slice";
 
 const WEATHER_API = "https://foreca-weather.p.rapidapi.com/";
+// const searchUrl=`${WEATHER_API}/location/search/${city}`
+
+const fetchData=(url)=>{
+  const sendRequest =fetch(url,{
+    method: "GET",
+    headers: {
+      "x-rapidapi-host": "foreca-weather.p.rapidapi.com",
+      "x-rapidapi-key": 'f212bdea09msh0895a0ba7dbcfd1p1dd497jsn55e85ecf1dcc',
+    },
+  })
+return sendRequest
+}
+
+
 export const fetchSearchReqeust = (city) => {
   return async (dispatch) => {
-    fetch(`${WEATHER_API}/location/search/${city}`, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "foreca-weather.p.rapidapi.com",
-        "x-rapidapi-key": "439e62528cmshf560c05f8538261p1c58b1jsnca9a487f5d07",
-      },
-    })
+    fetchData(`${WEATHER_API}/location/search/${city}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
           response.json().then(() => {
-            let errorMessage = "Fetch failed";
-            throw new Error(errorMessage);
+            throw new Error(`Fetching city's data failed`);
           });
         }
       })
       .then((data) => {
         console.log(data);
-        const cityId = [...data.locations];
-        const slicedArray = cityId.slice(0, 5);
-        slicedArray.map((el) => {
-          console.log(el.name, "-", el.adminArea, "-", el.country);
-          dispatch(
-              weatherActions.loadResultId({
-                  resultId: el.id,
-                })
-                );
+        const slicedArray = data.locations.slice(0, 5);
+        slicedArray.forEach((el) => {
                 dispatch(
                     weatherActions.loadDataHandler({
                         id: el.id,
@@ -42,7 +42,6 @@ export const fetchSearchReqeust = (city) => {
                     })
                     );
                 });
-                return
       })
       .catch((err) => {
         console.error(err);
@@ -52,20 +51,13 @@ export const fetchSearchReqeust = (city) => {
 
 export const fetchLatestObservations = (id) => {
   return async (dispatch) => {
-    fetch(`${WEATHER_API}/current/${id}?tempunit=C`, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "foreca-weather.p.rapidapi.com",
-        "x-rapidapi-key": "439e62528cmshf560c05f8538261p1c58b1jsnca9a487f5d07",
-      },
-    })
+    fetchData(`${WEATHER_API}/current/${id}?tempunit=C`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
           response.json().then(() => {
-            let errorMessage = "Fetch failed";
-            throw new Error(errorMessage);
+            throw new Error('Fetching latest obeservations failed');
           });
         }
       })
@@ -74,18 +66,15 @@ export const fetchLatestObservations = (id) => {
         dispatch(
           currentDataSliceActions.temperatureHandler({
             temperature: data.current.temperature,
-          })
-        );
+          }));
         dispatch(
           currentDataSliceActions.messageHandler({
             message: data.current.symbolPhrase,
-          })
-        );
+          }));
         dispatch(
           currentDataSliceActions.feelsLikeHandler({
             feelsLike: data.current.feelsLikeTemp,
-          })
-        );
+          }));
       })
       .catch((err) => {
         console.error(err);
@@ -95,28 +84,19 @@ export const fetchLatestObservations = (id) => {
 
 export const fetchDailyObservations = (id) => {
   return async (dispatch) => {
-    fetch(`${WEATHER_API}/forecast/daily/${id}?empunit=C&periods=7`, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "foreca-weather.p.rapidapi.com",
-        "x-rapidapi-key": "439e62528cmshf560c05f8538261p1c58b1jsnca9a487f5d07",
-      },
-    })
+    fetchData(`${WEATHER_API}/forecast/daily/${id}?empunit=C&periods=7`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
           response.json().then(() => {
-            let errorMessage = "Fetch failed";
-            throw new Error(errorMessage);
+            throw new Error("Fetching daily observations failed");
           });
         }
       })
       .then((data) => {
         console.log(data.forecast)
-        const copyData = [...data.forecast];
-        console.log(copyData);
-        data.forecast.map((data) => {
+        data.forecast.forEach((data) => {
           dispatch(
             forecastActions.loadForecastHandler({
               date: data.date,
@@ -125,19 +105,6 @@ export const fetchDailyObservations = (id) => {
               id:Math.random()
             })
             );
-            return
-    //     dispatch(forecastActions.dateHandler({
-    //         date: data.date
-    //     }))
-    //     dispatch(forecastActions.minTempHandler({
-    //         minTemp:data.minTemp
-    //     }))
-    //     dispatch(forecastActions.maxTempHandler({
-    //         maxTemp:data.maxTemp
-    //     }))
-    //     dispatch(forecastActions.idHandler({
-    //         id:data.precipAccum
-    //     }))
         });
       })
       .catch((err) => {
