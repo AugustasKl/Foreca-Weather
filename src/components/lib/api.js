@@ -12,7 +12,7 @@ const fetchData=(url)=>{
       "x-rapidapi-host": "foreca-weather.p.rapidapi.com",
       "x-rapidapi-key": 'f212bdea09msh0895a0ba7dbcfd1p1dd497jsn55e85ecf1dcc',
     },
-  })
+  })      
 return sendRequest
 }
 

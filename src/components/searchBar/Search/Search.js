@@ -13,7 +13,8 @@ const Search=()=>{
 
     const number = +enteredSearch.match(/\d+/g);
     const symbols= enteredSearch.match(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g)
-    const enteredSearchIsValid= enteredSearch.length<=30 && !Number(number) && !symbols
+    const inputLength=enteredSearch.length<=30
+    const enteredSearchIsValid= !Number(number) && !symbols
 
     const searchInputChangeHandler=(event)=>{
         setEnteredSearch(event.target.value)
@@ -39,6 +40,7 @@ const Search=()=>{
             />
                 <ButtonContainer disabled={!enteredSearchIsValid} >Search</ButtonContainer>
             {!enteredSearchIsValid && <ErrorContainer> Search input can only contain letters</ErrorContainer>}
+            {!inputLength && <ErrorContainer> Search input can't be longer than 30 letters</ErrorContainer>}
             <SearchSug data={searchData} />
             <PreviuosResults/>
         </SearchPageContainer>

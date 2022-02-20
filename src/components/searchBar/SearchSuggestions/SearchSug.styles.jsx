@@ -5,7 +5,6 @@ display: flex;
 
 a{
     text-decoration: none;
-    /* display: flex; */
     margin-right: 2rem;
     width: 10rem;
     margin-top: 1rem;
