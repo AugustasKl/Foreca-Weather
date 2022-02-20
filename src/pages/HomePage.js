@@ -1,4 +1,4 @@
-import Search from "./../components/searchBar/Search"
+import Search from "../components/searchBar/Search/Search"
 
 const HomePage=()=>{
 

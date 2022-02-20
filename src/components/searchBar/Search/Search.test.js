@@ -2,7 +2,7 @@ import { render,screen } from '@testing-library/react'
 import Search from './Search'
 
 import { Provider } from 'react-redux'
-import store from './../../redux/store'
+import store from '../../../redux/store'
 
 
 describe('Search component', ()=>{
