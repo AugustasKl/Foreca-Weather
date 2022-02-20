@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { locationActions } from '../../redux/location-slice'
-import { fetchSearchReqeust } from '../lib/api'
-import SearchSug from './SearchSuggestions/SearchSug'
+import { forecastActions } from '../../redux/forecast-slice'
+import { weatherActions } from '../../redux/location-slice'
+import { fetchLatestObservations, fetchSearchReqeust } from '../lib/api'
+import SearchSug from './SearchSug'
 import { SearchPageContainer, LabelContainer, InputContainer, ButtonContainer, ErrorContainer} from './Search.styles'
 import PreviuosResults from '../results/PreviousResults/PreviuosResults'
 
 const Search=()=>{
-    const dispatch=useDispatch();
-    const searchData=useSelector((state)=>state.location.data)
+    const dispatch=useDispatch()
+    const searchData=useSelector((state)=>state.weather)
+    console.log(searchData.data)
     const [enteredSearch, setEnteredSearch]=useState('')
+    // const [enteredSearchTouched, setEnteredSearchTouched]=useState(false)
 
     const number = +enteredSearch.match(/\d+/g);
     const symbols= enteredSearch.match(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g)
@@ -17,18 +20,20 @@ const Search=()=>{
 
     const searchInputChangeHandler=(event)=>{
         setEnteredSearch(event.target.value)
+        console.log(enteredSearch)
     }
-
     const formSubmissionHandler =(event)=>{
         event.preventDefault()
+        console.log(enteredSearch)
         dispatch(fetchSearchReqeust(enteredSearch))
         setEnteredSearch('')
-        dispatch(locationActions.replaceDataHandler({
+        dispatch(weatherActions.replaceDataHandler({
             data:[]
         }))
     }
 
-
+    
+    
     return(
         <SearchPageContainer onSubmit={formSubmissionHandler}>
             <LabelContainer htmlFor='name'>Search City</LabelContainer>
@@ -39,7 +44,7 @@ const Search=()=>{
             />
                 <ButtonContainer disabled={!enteredSearchIsValid} >Search</ButtonContainer>
             {!enteredSearchIsValid && <ErrorContainer> Search input can only contain letters</ErrorContainer>}
-            <SearchSug data={searchData} />
+            <SearchSug data={searchData.data} />
             <PreviuosResults/>
         </SearchPageContainer>
 

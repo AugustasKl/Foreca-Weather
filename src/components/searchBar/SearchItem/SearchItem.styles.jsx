@@ -7,6 +7,9 @@ flex-direction: column;
 align-items: center;
 padding: 2rem 1rem ;
 background-color: beige;
-font-size: 1.2rem;
 color:#777
+`
+export const ListContainer=styled.li`
+font-size: 1.2rem;
+list-style-type: none;
 `

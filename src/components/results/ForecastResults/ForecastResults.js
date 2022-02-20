@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { forecastActions } from '../../../redux/forecast-slice'
 import { useHistory } from 'react-router-dom'
 import { ForecastContainer, HeaderContainer, ListContainer, ButtonContainer } from './ForecastResults.styles'
-import { weatherActions } from '../../../redux/weather-slice'
+import { locationActions } from '../../../redux/location-slice'
 
 
 const ForecastResults=()=>{
@@ -23,7 +23,7 @@ const ForecastResults=()=>{
     }
 
 const goBackHandler=()=>{
-    dispatch(weatherActions.replaceDataHandler({
+    dispatch(locationActions.replaceDataHandler({
         data:[]
     }))
     history.replace('/')

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom"
 
 export const HeaderContainer=styled.header`
 position: fixed;
@@ -12,4 +12,8 @@ background-image:linear-gradient(to right bottom, pink, rgba(165, 165, 247, 0.91
 text-align: center;
 font-size: 2rem;
 z-index: 2;
+`
+
+export const LinkContainer=styled(Link)`
+color:black;
 `

@@ -1,9 +1,9 @@
 import { currentDataSliceActions } from "../../redux/currentData-slice";
 import { forecastActions } from "../../redux/forecast-slice";
-import  { weatherActions } from "../../redux/weather-slice";
+import  { locationActions } from "../../redux/location-slice";
 
 const WEATHER_API = "https://foreca-weather.p.rapidapi.com/";
-// const searchUrl=`${WEATHER_API}/location/search/${city}`
+
 
 const fetchData=(url)=>{
   const sendRequest =fetch(url,{
@@ -34,7 +34,7 @@ export const fetchSearchReqeust = (city) => {
         const slicedArray = data.locations.slice(0, 5);
         slicedArray.forEach((el) => {
                 dispatch(
-                    weatherActions.loadDataHandler({
+                  locationActions.loadDataHandler({
                         id: el.id,
                         name: el.name,
                         city: el.adminArea,

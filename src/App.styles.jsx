@@ -7,11 +7,3 @@ export const ImgContainer = styled.img`
   overflow: hidden;
   position: relative;
 `;
-
-// img{
-//   display: block;
-//   width: 100vw;
-//   height: 100vh;
-//   overflow: hidden;
-//   position: relative;
-// }

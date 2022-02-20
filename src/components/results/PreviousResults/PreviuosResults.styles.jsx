@@ -34,7 +34,7 @@ padding: 0.5rem 1rem;
  cursor: pointer;
  text-align: center;
  margin-top:1rem;
-
+ margin-left:1.5rem;
  &:hover{
     background-color:rgb(44, 44, 44);
     color: rgba(113, 113, 240, 0.918); 

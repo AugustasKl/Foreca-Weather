@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { weatherActions } from "../../../redux/weather-slice";
-import { currentDataSliceActions } from "../../../redux/currentData-slice";
-import { LinkContainer } from "./SearchItem.styles";
+import { locationActions } from "../../../redux/location-slice";
+import { LinkContainer, ListContainer } from "./SearchItem.styles";
 
 const SearchItem = (props) => {
     const { name, city, country,id} = props;
@@ -15,7 +14,7 @@ const cityDataHandler=()=>{
     localStorage.setItem('region', city === null ? '': `${city},`)
     localStorage.setItem('id', id)
 
-    dispatch(weatherActions.replaceDataHandler({
+    dispatch(locationActions.replaceDataHandler({
       data:[]
   }))
 }
@@ -23,9 +22,11 @@ const cityDataHandler=()=>{
   return (
     <React.Fragment>
       <LinkContainer to={`/weather/${id}`} onClick={cityDataHandler}>
-        <span>{name}</span>
+      <ListContainer>
+        <span>{name},</span>
         <span>{city === null ? '': `${city},`} </span>
         <span>{country}</span>
+      </ListContainer>
       </LinkContainer>
     </React.Fragment>
   );

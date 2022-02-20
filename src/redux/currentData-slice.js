@@ -4,9 +4,6 @@ const initialCurrentDataState={
     temperature:'',
     message:'',
     feelsLike:'',
-    city:'',
-    country:'',
-    region:''
 }
 
 const currentDataSlice=createSlice({
@@ -21,15 +18,6 @@ const currentDataSlice=createSlice({
         },
         feelsLikeHandler(state, action){
             state.feelsLike=action.payload.feelsLike
-        },
-        cityHandler(state, action){
-            state.city=action.payload.city
-        },
-        countryHandler(state,action){
-            state.country=action.payload.country
-        },
-        regionHandler(state,action){
-            state.region=action.payload.region
         }
 
     }
